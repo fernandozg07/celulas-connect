@@ -1,7 +1,56 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { PrismaClient } from '@prisma/client'
 
-const prisma = new PrismaClient()
+// Células hardcoded
+const celulas = [
+  {
+    id: '1',
+    nome: 'Célula Esperança',
+    lider: 'Carlos Oliveira',
+    whatsapp: '11999999999',
+    dia: 'Terça-feira',
+    horario: '19:30',
+    descricao: 'Uma célula acolhedora focada no crescimento espiritual e comunhão fraternal.',
+    faixaEtaria: 'adultos',
+    endereco: 'Rua das Palmeiras, 789',
+    bairro: 'Vila Madalena',
+    cidade: 'São Paulo',
+    avaliacao: 4.8,
+    ativa: true,
+    igreja: { nome: 'Igreja Batista Central' }
+  },
+  {
+    id: '2',
+    nome: 'Célula Jovens Unidos',
+    lider: 'Ana Costa',
+    whatsapp: '11888888888',
+    dia: 'Quinta-feira',
+    horario: '20:00',
+    descricao: 'Célula dinâmica para jovens de 18 a 30 anos com foco em crescimento e propósito.',
+    faixaEtaria: 'jovens',
+    endereco: 'Rua dos Pinheiros, 456',
+    bairro: 'Pinheiros',
+    cidade: 'São Paulo',
+    avaliacao: 4.9,
+    ativa: true,
+    igreja: { nome: 'Igreja Metodista São Paulo' }
+  },
+  {
+    id: '3',
+    nome: 'Célula Família Abençoada',
+    lider: 'João Silva',
+    whatsapp: '11777777777',
+    dia: 'Sábado',
+    horario: '15:00',
+    descricao: 'Célula para famílias com crianças, focada no fortalecimento dos laços familiares.',
+    faixaEtaria: 'todas',
+    endereco: 'Av. Rebouças, 321',
+    bairro: 'Jardins',
+    cidade: 'São Paulo',
+    avaliacao: 4.7,
+    ativa: true,
+    igreja: { nome: 'Igreja Batista Central' }
+  }
+]
 
 export async function GET(request: NextRequest) {
   try {
@@ -10,43 +59,25 @@ export async function GET(request: NextRequest) {
     const faixaEtaria = searchParams.get('faixaEtaria')
     const bairro = searchParams.get('bairro')
 
-    const where: any = {
-      ativa: true
-    }
+    let celulasFiltradas = celulas.filter(c => c.ativa)
 
     if (dia) {
-      where.dia = {
-        contains: dia,
-        mode: 'insensitive'
-      }
+      celulasFiltradas = celulasFiltradas.filter(c => 
+        c.dia.toLowerCase().includes(dia.toLowerCase())
+      )
     }
 
     if (faixaEtaria && faixaEtaria !== 'todas') {
-      where.faixaEtaria = faixaEtaria
+      celulasFiltradas = celulasFiltradas.filter(c => c.faixaEtaria === faixaEtaria)
     }
 
     if (bairro) {
-      where.bairro = {
-        contains: bairro,
-        mode: 'insensitive'
-      }
+      celulasFiltradas = celulasFiltradas.filter(c => 
+        c.bairro.toLowerCase().includes(bairro.toLowerCase())
+      )
     }
 
-    const celulas = await prisma.celula.findMany({
-      where,
-      include: {
-        igreja: {
-          select: {
-            nome: true
-          }
-        }
-      },
-      orderBy: {
-        avaliacao: 'desc'
-      }
-    })
-
-    return NextResponse.json(celulas)
+    return NextResponse.json(celulasFiltradas)
 
   } catch (error) {
     console.error('Erro ao buscar células:', error)

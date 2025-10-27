@@ -1,8 +1,40 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { PrismaClient } from '@prisma/client'
-import bcrypt from 'bcryptjs'
 
-const prisma = new PrismaClient()
+// Usuários hardcoded para funcionar na Vercel
+const usuarios = [
+  {
+    id: '1',
+    nome: 'João Silva',
+    email: 'joao@ibcentral.com.br',
+    senha: '123456',
+    tipo: 'admin',
+    igreja: { nome: 'Igreja Batista Central' }
+  },
+  {
+    id: '2',
+    nome: 'Maria Santos',
+    email: 'maria@metodista.com.br',
+    senha: '123456',
+    tipo: 'admin',
+    igreja: { nome: 'Igreja Metodista São Paulo' }
+  },
+  {
+    id: '3',
+    nome: 'Carlos Oliveira',
+    email: 'carlos@ibcentral.com.br',
+    senha: '123456',
+    tipo: 'lider',
+    igreja: { nome: 'Igreja Batista Central' }
+  },
+  {
+    id: '4',
+    nome: 'Ana Costa',
+    email: 'ana@metodista.com.br',
+    senha: '123456',
+    tipo: 'lider',
+    igreja: { nome: 'Igreja Metodista São Paulo' }
+  }
+]
 
 export async function POST(request: NextRequest) {
   try {
@@ -15,20 +47,9 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const usuario = await prisma.usuario.findUnique({
-      where: { email },
-      include: { igreja: true }
-    })
+    const usuario = usuarios.find(u => u.email === email && u.senha === senha)
 
     if (!usuario) {
-      return NextResponse.json(
-        { error: 'Credenciais inválidas' },
-        { status: 401 }
-      )
-    }
-
-    const senhaValida = await bcrypt.compare(senha, usuario.senha)
-    if (!senhaValida) {
       return NextResponse.json(
         { error: 'Credenciais inválidas' },
         { status: 401 }
