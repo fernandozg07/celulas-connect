@@ -1,0 +1,145 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Igreja {
+  id        String   @id @default(cuid())
+  nome      String
+  pastor    String
+  email     String   @unique
+  telefone  String
+  endereco  String
+  cidade    String
+  estado    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  usuarios Usuario[]
+  celulas  Celula[]
+}
+
+model Usuario {
+  id       String @id @default(cuid())
+  nome     String
+  email    String @unique
+  senha    String
+  tipo     String // 'admin' | 'lider'
+  igrejaId String
+
+  igreja    Igreja @relation(fields: [igrejaId], references: [id])
+  celulas   Celula[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Celula {
+  id          String  @id @default(cuid())
+  nome        String
+  lider       String
+  whatsapp    String
+  dia         String
+  horario     String
+  descricao   String
+  faixaEtaria String // 'jovens' | 'adultos' | 'idosos' | 'todas'
+  endereco    String
+  bairro      String
+  cidade      String
+  latitude    Float?
+  longitude   Float?
+  avaliacao   Float   @default(5.0)
+  ativa       Boolean @default(true)
+  igrejaId    String
+  liderUserId String?
+
+  igreja      Igreja       @relation(fields: [igrejaId], references: [id])
+  liderUser   Usuario?     @relation(fields: [liderUserId], references: [id])
+  membros     Membro[]
+  frequencias Frequencia[]
+  equipes     Equipe[]
+  escalas     Escala[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model Membro {
+  id        String  @id @default(cuid())
+  nome      String
+  telefone  String?
+  email     String?
+  celulaId  String
+  ativo     Boolean @default(true)
+
+  celula         Celula           @relation(fields: [celulaId], references: [id])
+  frequencias    Frequencia[]
+  membrosEquipes MembroEquipe[]
+  escalaMembros  EscalaMembro[]
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+}
+
+model Frequencia {
+  id        String   @id @default(cuid())
+  membroId  String
+  celulaId  String
+  data      DateTime
+  presente  Boolean
+
+  membro    Membro   @relation(fields: [membroId], references: [id])
+  celula    Celula   @relation(fields: [celulaId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model Equipe {
+  id        String  @id @default(cuid())
+  nome      String
+  descricao String?
+  celulaId  String
+
+  celula         Celula           @relation(fields: [celulaId], references: [id])
+  membrosEquipes MembroEquipe[]
+  escalaMembros  EscalaMembro[]
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+}
+
+model MembroEquipe {
+  id       String  @id @default(cuid())
+  membroId String
+  equipeId String
+  funcao   String
+  ativo    Boolean @default(true)
+
+  membro    Membro   @relation(fields: [membroId], references: [id])
+  equipe    Equipe   @relation(fields: [equipeId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model Escala {
+  id          String  @id @default(cuid())
+  celulaId    String
+  data        DateTime
+  observacoes String?
+
+  celula        Celula         @relation(fields: [celulaId], references: [id])
+  escalaMembros EscalaMembro[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+}
+
+model EscalaMembro {
+  id       String @id @default(cuid())
+  escalaId String
+  membroId String
+  equipeId String
+  funcao   String
+
+  escala    Escala   @relation(fields: [escalaId], references: [id])
+  membro    Membro   @relation(fields: [membroId], references: [id])
+  equipe    Equipe   @relation(fields: [equipeId], references: [id])
+  createdAt DateTime @default(now())
+}
