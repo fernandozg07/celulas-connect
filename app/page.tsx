@@ -9,19 +9,20 @@ export default function HomePage() {
       {/* Header */}
       <header className="bg-white/80 backdrop-blur-md shadow-lg border-b border-white/20 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-6">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center">
-                <Users className="w-6 h-6 text-white" />
+          <div className="flex justify-between items-center py-4 md:py-6">
+            <div className="flex items-center space-x-2 md:space-x-3">
+              <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center">
+                <Users className="w-4 h-4 md:w-6 md:h-6 text-white" />
               </div>
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">CélulasConnect</h1>
+              <h1 className="text-xl md:text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">CélulasConnect</h1>
             </div>
-            <div className="flex items-center space-x-4">
-              <Link href="/login" className="text-gray-600 hover:text-indigo-600 font-medium transition-colors">
+            <div className="flex items-center space-x-2 md:space-x-4">
+              <Link href="/login" className="hidden sm:block text-gray-600 hover:text-indigo-600 font-medium transition-colors">
                 Login
               </Link>
-              <Link href="/login" className="btn-primary">
-                Cadastrar Igreja
+              <Link href="/login" className="btn-primary text-sm md:text-base px-4 py-2 md:px-8 md:py-3">
+                <span className="hidden sm:inline">Cadastrar Igreja</span>
+                <span className="sm:hidden">⛪</span>
               </Link>
             </div>
           </div>
@@ -45,11 +46,11 @@ export default function HomePage() {
           <p className="text-xl md:text-2xl mb-12 opacity-90 max-w-3xl mx-auto leading-relaxed">
             Conecte-se com a comunidade perfeita para você e fortaleça sua jornada espiritual
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Link href="/buscar" className="bg-white text-indigo-600 px-10 py-4 rounded-2xl text-lg font-bold hover:bg-gray-100 transition-all duration-300 shadow-2xl hover:shadow-3xl transform hover:-translate-y-1">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center px-4">
+            <Link href="/buscar" className="w-full sm:w-auto bg-white text-indigo-600 px-6 sm:px-10 py-4 rounded-2xl text-base sm:text-lg font-bold hover:bg-gray-100 transition-all duration-300 shadow-2xl hover:shadow-3xl transform hover:-translate-y-1 text-center">
               🔍 Encontrar Minha Célula
             </Link>
-            <Link href="/login" className="glass-card text-white px-10 py-4 rounded-2xl text-lg font-semibold hover:bg-white/20 transition-all duration-300">
+            <Link href="/login" className="w-full sm:w-auto glass-card text-white px-6 sm:px-10 py-4 rounded-2xl text-base sm:text-lg font-semibold hover:bg-white/20 transition-all duration-300 text-center">
               ⛪ Cadastrar Igreja
             </Link>
           </div>
@@ -116,11 +117,11 @@ export default function HomePage() {
           <p className="text-xl text-white/90 mb-12 max-w-3xl mx-auto leading-relaxed">
             Gerencie suas células e equipes de forma simples e eficiente com nossa plataforma completa
           </p>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Link href="/login" className="bg-white text-indigo-600 px-10 py-4 rounded-2xl text-lg font-bold hover:bg-gray-100 transition-all duration-300 shadow-2xl transform hover:-translate-y-1">
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center px-4">
+            <Link href="/login" className="w-full sm:w-auto bg-white text-indigo-600 px-6 sm:px-10 py-4 rounded-2xl text-base sm:text-lg font-bold hover:bg-gray-100 transition-all duration-300 shadow-2xl transform hover:-translate-y-1 text-center">
               ⛪ Cadastrar Minha Igreja
             </Link>
-            <Link href="/login" className="glass-card text-white px-10 py-4 rounded-2xl text-lg font-semibold hover:bg-white/20 transition-all duration-300">
+            <Link href="/login" className="w-full sm:w-auto glass-card text-white px-6 sm:px-10 py-4 rounded-2xl text-base sm:text-lg font-semibold hover:bg-white/20 transition-all duration-300 text-center">
               🔑 Fazer Login
             </Link>
           </div>

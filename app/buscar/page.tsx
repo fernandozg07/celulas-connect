@@ -86,36 +86,37 @@ export default function BuscarPage() {
       {/* Header */}
       <header className="bg-white/80 backdrop-blur-md shadow-lg border-b border-white/20 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-6">
-            <Link href="/" className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center">
-                <Users className="w-6 h-6 text-white" />
+          <div className="flex justify-between items-center py-4 md:py-6">
+            <Link href="/" className="flex items-center space-x-2 md:space-x-3">
+              <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center">
+                <Users className="w-4 h-4 md:w-6 md:h-6 text-white" />
               </div>
-              <span className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">CélulasConnect</span>
+              <span className="text-xl md:text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">CélulasConnect</span>
             </Link>
-            <Link href="/login" className="btn-primary">
-              🔑 Login
+            <Link href="/login" className="btn-primary text-sm md:text-base px-4 py-2 md:px-8 md:py-3">
+              <span className="hidden sm:inline">🔑 Login</span>
+              <span className="sm:hidden">🔑</span>
             </Link>
           </div>
         </div>
       </header>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="mb-12 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent mb-6">
+        <div className="mb-8 md:mb-12 text-center">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent mb-4 md:mb-6">
             🔍 Encontre Sua Célula
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto px-4">
             Use os filtros abaixo para encontrar a célula perfeita para você e sua família
           </p>
         </div>
 
         {/* Filtros */}
-        <div className="card mb-12">
-          <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
+        <div className="card mb-8 md:mb-12">
+          <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-4 md:mb-6 flex items-center">
             ⚙️ Filtros de Busca
           </h3>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-3">
                 📅 Dia da Semana
@@ -174,7 +175,7 @@ export default function BuscarPage() {
             <p className="mt-4 text-gray-600">Carregando células...</p>
           </div>
         ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {celulasFiltradas.map((celula) => (
               <div key={celula.id} className="card hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group">
                 <div className="flex justify-between items-start mb-6">

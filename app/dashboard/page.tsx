@@ -38,24 +38,24 @@ export default function DashboardPage() {
       {/* Header */}
       <header className="bg-white/80 backdrop-blur-md shadow-lg border-b border-white/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-6">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center">
-                <Users className="w-6 h-6 text-white" />
+          <div className="flex justify-between items-center py-4 md:py-6">
+            <div className="flex items-center space-x-2 md:space-x-3">
+              <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center">
+                <Users className="w-4 h-4 md:w-6 md:h-6 text-white" />
               </div>
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">CélulasConnect</h1>
+              <h1 className="text-xl md:text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">CélulasConnect</h1>
             </div>
-            <div className="flex items-center space-x-6">
-              <div className="text-right">
+            <div className="flex items-center space-x-2 md:space-x-6">
+              <div className="hidden sm:block text-right">
                 <p className="text-sm text-gray-500">Bem-vindo,</p>
                 <p className="font-semibold text-gray-900">{user.nome}</p>
               </div>
               <button
                 onClick={handleLogout}
-                className="bg-red-50 text-red-600 hover:bg-red-100 px-4 py-2 rounded-xl flex items-center transition-colors font-medium"
+                className="bg-red-50 text-red-600 hover:bg-red-100 px-3 py-2 md:px-4 md:py-2 rounded-xl flex items-center transition-colors font-medium text-sm md:text-base"
               >
-                <LogOut className="w-4 h-4 mr-2" />
-                Sair
+                <LogOut className="w-4 h-4 md:mr-2" />
+                <span className="hidden md:inline">Sair</span>
               </button>
             </div>
           </div>
@@ -64,7 +64,7 @@ export default function DashboardPage() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 mb-8 md:mb-12">
           <div className="card group hover:scale-105 transition-transform duration-300">
             <div className="flex items-center">
               <div className="bg-gradient-to-r from-blue-500 to-cyan-500 p-4 rounded-2xl shadow-lg">
@@ -115,7 +115,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Quick Actions */}
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
           <div className="card">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Ações Rápidas</h3>
             <div className="space-y-3">
@@ -159,10 +159,10 @@ export default function DashboardPage() {
         </div>
 
         {/* Navigation Menu */}
-        <div className="mt-8">
+        <div className="mt-6 md:mt-8">
           <div className="card">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Menu Principal</h3>
-            <div className="grid md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <Link href="/dashboard/celulas" className="p-4 border border-gray-200 rounded-lg hover:border-primary hover:bg-primary/5 transition-colors">
                 <Users className="w-8 h-8 text-primary mb-2" />
                 <h4 className="font-semibold">Minhas Células</h4>
