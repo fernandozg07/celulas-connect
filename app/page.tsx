@@ -131,21 +131,53 @@ export default function HomePage() {
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <div className="flex items-center justify-center space-x-3 mb-6">
-              <div className="w-12 h-12 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center">
-                <Users className="w-7 h-7 text-white" />
+          <div className="grid md:grid-cols-4 gap-8 mb-8">
+            <div>
+              <div className="flex items-center space-x-3 mb-4">
+                <div className="w-10 h-10 bg-gradient-to-r from-green-600 to-blue-600 rounded-xl flex items-center justify-center">
+                  <Users className="w-6 h-6 text-white" />
+                </div>
+                <h4 className="text-xl font-bold bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">Células Saudáveis</h4>
               </div>
-              <h4 className="text-3xl font-bold bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">Células Saudáveis</h4>
-            </div>
-            <p className="text-gray-400 text-lg mb-8">
-              Conectando comunidades, fortalecendo vínculos 🙏
-            </p>
-            <div className="border-t border-gray-800 pt-8">
-              <p className="text-gray-500">
-                © 2024 Células Saudáveis - Viva o Ide de Jesus. Todos os direitos reservados.
+              <p className="text-gray-400">
+                Viva o Ide de Jesus através de células saudáveis e transformadoras.
               </p>
             </div>
+            
+            <div>
+              <h5 className="font-bold text-white mb-4">Descubra</h5>
+              <ul className="space-y-2 text-gray-400">
+                <li><Link href="/o-que-e-celula" className="hover:text-white transition-colors">📚 O que é uma Célula?</Link></li>
+                <li><Link href="/buscar" className="hover:text-white transition-colors">🔍 Buscar Células</Link></li>
+                <li><Link href="/visitante" className="hover:text-white transition-colors">👋 Sou Visitante</Link></li>
+                <li><Link href="/downloads" className="hover:text-white transition-colors">📚 Material Gratuito</Link></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h5 className="font-bold text-white mb-4">Comunidade</h5>
+              <ul className="space-y-2 text-gray-400">
+                <li><Link href="/oracoes" className="hover:text-white transition-colors">🙏 Pedidos de Oração</Link></li>
+                <li><Link href="/experiencias" className="hover:text-white transition-colors">📸 Fotos & Experiências</Link></li>
+                <li><Link href="/depoimentos" className="hover:text-white transition-colors">🎤 Depoimentos</Link></li>
+                <li><Link href="/devocionais" className="hover:text-white transition-colors">📝 Devocionais</Link></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h5 className="font-bold text-white mb-4">Líderes</h5>
+              <ul className="space-y-2 text-gray-400">
+                <li><Link href="/login" className="hover:text-white transition-colors">🔑 Login</Link></li>
+                <li><Link href="/dashboard" className="hover:text-white transition-colors">📊 Dashboard</Link></li>
+                <li><Link href="/financeiro" className="hover:text-white transition-colors">💰 Financeiro</Link></li>
+              </ul>
+            </div>
+          </div>
+          
+          <div className="border-t border-gray-800 pt-8 text-center">
+            <p className="text-gray-500">
+              © 2024 Células Saudáveis - Viva o Ide de Jesus. Todos os direitos reservados.
+            </p>
           </div>
         </div>
       </footer>
