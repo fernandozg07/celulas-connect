@@ -169,7 +169,7 @@ export default function HomePage() {
               <ul className="space-y-2 text-gray-400">
                 <li><Link href="/login" className="hover:text-white transition-colors">🔑 Login</Link></li>
                 <li><Link href="/dashboard" className="hover:text-white transition-colors">📊 Dashboard</Link></li>
-                <li><Link href="/financeiro" className="hover:text-white transition-colors">💰 Financeiro</Link></li>
+                <li><Link href="/dashboard" className="hover:text-white transition-colors">💰 Gestão</Link></li>
               </ul>
             </div>
           </div>

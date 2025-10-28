@@ -15,6 +15,9 @@ export default function LoginPage() {
     nome: '',
     nomeIgreja: '',
     pastor: '',
+    liderPrincipal: '',
+    liderTreinamento: '',
+    anfitriao: '',
     telefone: '',
     endereco: '',
     cidade: '',
@@ -131,6 +134,45 @@ export default function LoginPage() {
                     onChange={(e) => setFormData({...formData, pastor: e.target.value})}
                     className="input-field"
                     placeholder="Nome do pastor"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Líder Principal
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.liderPrincipal || ''}
+                    onChange={(e) => setFormData({...formData, liderPrincipal: e.target.value})}
+                    className="input-field"
+                    placeholder="Nome do líder principal"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Líder em Treinamento
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.liderTreinamento || ''}
+                    onChange={(e) => setFormData({...formData, liderTreinamento: e.target.value})}
+                    className="input-field"
+                    placeholder="Nome do líder em treinamento"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Anfitrião
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.anfitriao || ''}
+                    onChange={(e) => setFormData({...formData, anfitriao: e.target.value})}
+                    className="input-field"
+                    placeholder="Nome do anfitrião (dono da casa)"
                   />
                 </div>
 
