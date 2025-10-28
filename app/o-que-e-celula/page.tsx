@@ -36,7 +36,7 @@ export default function OQueECelulaPage() {
             O que é uma Célula?
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Descubra o poder transformador das células saudáveis e como elas podem revolucionar sua vida espiritual e comunitária.
+            Descubra por que milhões de cristãos ao redor do mundo estão vivendo o verdadeiro cristianismo em células.
           </p>
         </div>
 
@@ -49,9 +49,9 @@ export default function OQueECelulaPage() {
             Uma Célula é uma Família Espiritual
           </h2>
           <p className="text-lg text-gray-600 leading-relaxed">
-            É um pequeno grupo de pessoas que se reúne regularmente para <strong>adorar a Deus</strong>, 
-            <strong> estudar a Bíblia</strong>, <strong>orar uns pelos outros</strong> e 
-            <strong> viver em comunhão genuína</strong>. É onde o amor de Cristo se torna real e prático.
+            É onde você deixa de ser apenas mais um na multidão e se torna <strong>família</strong>. 
+            Onde suas <strong>orações são ouvidas</strong>, seus <strong>dons são desenvolvidos</strong> e 
+            você <strong>cresce espiritualmente</strong> de forma real e prática.
           </p>
         </div>
 
@@ -62,11 +62,11 @@ export default function OQueECelulaPage() {
               Pronto para Começar?
             </h2>
             <p className="text-xl mb-8 opacity-90">
-              Encontre uma célula saudável perto de você e comece sua jornada de crescimento espiritual em comunidade.
+              Não espere mais! Sua família espiritual está esperando por você. Dê o primeiro passo hoje.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/buscar" className="bg-white text-green-600 px-8 py-4 rounded-xl font-bold hover:bg-gray-100 transition-all duration-300 flex items-center justify-center">
-                🔍 Encontrar Célula Saudável
+                🔥 Quero Fazer Parte Agora!
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
               <Link href="/downloads" className="bg-white/20 text-white px-8 py-4 rounded-xl font-bold hover:bg-white/30 transition-all duration-300 flex items-center justify-center">

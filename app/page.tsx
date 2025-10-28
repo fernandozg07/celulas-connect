@@ -44,11 +44,11 @@ export default function HomePage() {
             </span>
           </h2>
           <p className="text-xl md:text-2xl mb-12 opacity-90 max-w-3xl mx-auto leading-relaxed">
-            Conecte-se com células saudáveis e fortaleça sua jornada espiritual em comunidade
+            Transforme vidas através de células que realmente fazem a diferença no Reino de Deus
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center px-4">
             <Link href="/buscar" className="w-full sm:w-auto bg-white text-indigo-600 px-6 sm:px-10 py-4 rounded-2xl text-base sm:text-lg font-bold hover:bg-gray-100 transition-all duration-300 shadow-2xl hover:shadow-3xl transform hover:-translate-y-1 text-center">
-🔍 Encontrar Célula Saudável
+🔥 Encontre Sua Célula Agora
             </Link>
             <Link href="/o-que-e-celula" className="w-full sm:w-auto glass-card text-white px-6 sm:px-10 py-4 rounded-2xl text-base sm:text-lg font-semibold hover:bg-white/20 transition-all duration-300 text-center">
               📚 O que é uma Célula?
@@ -65,7 +65,7 @@ export default function HomePage() {
               Como Funciona
             </h3>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Simples, rápido e eficiente - conecte-se em 3 passos
+              Deus tem uma família espiritual esperando por você - descubra em 3 passos
             </p>
           </div>
           
@@ -76,7 +76,7 @@ export default function HomePage() {
               </div>
               <h4 className="text-2xl font-bold mb-4 text-gray-900">1. Busque por Localização</h4>
               <p className="text-gray-600 text-lg leading-relaxed">
-                Encontre células próximas a você usando sua localização ou bairro preferido
+                Deus colocou uma família espiritual perto de você - descubra onde ela está
               </p>
             </div>
             
@@ -86,7 +86,7 @@ export default function HomePage() {
               </div>
               <h4 className="text-2xl font-bold mb-4 text-gray-900">2. Filtre por Perfil</h4>
               <p className="text-gray-600 text-lg leading-relaxed">
-                Escolha por faixa etária, dia da semana e estilo que mais combina com você
+                Encontre pessoas na sua faixa etária que compartilham a mesma paixão por Jesus
               </p>
             </div>
             
@@ -96,7 +96,7 @@ export default function HomePage() {
               </div>
               <h4 className="text-2xl font-bold mb-4 text-gray-900">3. Conecte-se Direto</h4>
               <p className="text-gray-600 text-lg leading-relaxed">
-                Entre em contato direto com o líder via WhatsApp e comece sua jornada
+                Converse com líderes apaixonados que vão te acolher como família
               </p>
             </div>
           </div>
@@ -115,14 +115,14 @@ export default function HomePage() {
             Lidere Células Saudáveis
           </h3>
           <p className="text-xl text-white/90 mb-12 max-w-3xl mx-auto leading-relaxed">
-            Gerencie suas células com ferramentas espirituais e práticas para o crescimento do Reino
+            Lidere com propósito: ferramentas que multiplicam vidas e expandem o Reino de Deus
           </p>
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center px-4">
             <Link href="/login" className="w-full sm:w-auto bg-white text-indigo-600 px-6 sm:px-10 py-4 rounded-2xl text-base sm:text-lg font-bold hover:bg-gray-100 transition-all duration-300 shadow-2xl transform hover:-translate-y-1 text-center">
-              ⛪ Cadastrar Minha Igreja
+              🚀 Começar Agora - É Grátis!
             </Link>
             <Link href="/downloads" className="w-full sm:w-auto glass-card text-white px-6 sm:px-10 py-4 rounded-2xl text-base sm:text-lg font-semibold hover:bg-white/20 transition-all duration-300 text-center">
-              📚 Material Gratuito
+              🎁 Kit Gratuito (30 Recursos)
             </Link>
           </div>
         </div>

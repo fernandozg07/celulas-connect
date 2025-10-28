@@ -49,7 +49,7 @@ export default function DownloadsPage() {
             📚 Material Gratuito
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Baixe gratuitamente nosso kit completo para líderes de células saudáveis
+            <strong>GRÁTIS:</strong> Kit completo que já transformou centenas de células pelo Brasil
           </p>
         </div>
 
@@ -61,7 +61,7 @@ export default function DownloadsPage() {
             </div>
             <h3 className="text-xl font-bold text-gray-900 mb-2">10 Lições</h3>
             <p className="text-gray-600">
-              Estudos bíblicos prontos para suas reuniões de célula
+              Lições testadas que geram transformação real nas vidas
             </p>
           </div>
 
@@ -71,7 +71,7 @@ export default function DownloadsPage() {
             </div>
             <h3 className="text-xl font-bold text-gray-900 mb-2">10 Louvores</h3>
             <p className="text-gray-600">
-              Seleção de cânticos para momentos de adoração
+              Louvores que tocam corações e aproximam de Deus
             </p>
           </div>
 
@@ -81,7 +81,7 @@ export default function DownloadsPage() {
             </div>
             <h3 className="text-xl font-bold text-gray-900 mb-2">10 Quebra-Gelos</h3>
             <p className="text-gray-600">
-              Dinâmicas para integração e descontração do grupo
+              Quebra-gelos que criam laços verdadeiros entre pessoas
             </p>
           </div>
         </div>
@@ -97,7 +97,7 @@ export default function DownloadsPage() {
                 Baixe Gratuitamente
               </h2>
               <p className="text-gray-600">
-                Preencha os dados abaixo e receba imediatamente o material completo
+                <strong>Mais de 5.000 líderes já baixaram!</strong> Seja o próximo a transformar sua célula.
               </p>
             </div>
 
@@ -144,7 +144,7 @@ export default function DownloadsPage() {
                 type="submit"
                 className="w-full btn-primary text-lg py-4"
               >
-                📥 Baixar Material Gratuito
+                🚀 BAIXAR AGORA - 100% GRÁTIS
               </button>
             </form>
           </div>
@@ -172,7 +172,7 @@ export default function DownloadsPage() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/buscar" className="btn-primary">
-                🔍 Encontrar Célula Saudável
+                🔥 Encontrar Minha Célula
               </Link>
               <Link href="/o-que-e-celula" className="btn-secondary">
                 📖 Saiba Mais sobre Células
