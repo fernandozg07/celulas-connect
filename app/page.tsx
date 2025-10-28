@@ -14,7 +14,7 @@ export default function HomePage() {
               <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center">
                 <Users className="w-4 h-4 md:w-6 md:h-6 text-white" />
               </div>
-              <h1 className="text-xl md:text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">CélulasConnect</h1>
+              <h1 className="text-lg md:text-2xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">Células Saudáveis</h1>
             </div>
             <div className="flex items-center space-x-2 md:space-x-4">
               <Link href="/login" className="hidden sm:block text-gray-600 hover:text-indigo-600 font-medium transition-colors">
@@ -38,20 +38,20 @@ export default function HomePage() {
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <h2 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
-            Encontre Sua
-            <span className="block bg-gradient-to-r from-yellow-300 to-pink-300 bg-clip-text text-transparent">
-              Célula Ideal
+            Viva o
+            <span className="block bg-gradient-to-r from-yellow-300 to-green-300 bg-clip-text text-transparent">
+              Ide de Jesus
             </span>
           </h2>
           <p className="text-xl md:text-2xl mb-12 opacity-90 max-w-3xl mx-auto leading-relaxed">
-            Conecte-se com a comunidade perfeita para você e fortaleça sua jornada espiritual
+            Conecte-se com células saudáveis e fortaleça sua jornada espiritual em comunidade
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center px-4">
             <Link href="/buscar" className="w-full sm:w-auto bg-white text-indigo-600 px-6 sm:px-10 py-4 rounded-2xl text-base sm:text-lg font-bold hover:bg-gray-100 transition-all duration-300 shadow-2xl hover:shadow-3xl transform hover:-translate-y-1 text-center">
-              🔍 Encontrar Minha Célula
+🔍 Encontrar Célula Saudável
             </Link>
-            <Link href="/login" className="w-full sm:w-auto glass-card text-white px-6 sm:px-10 py-4 rounded-2xl text-base sm:text-lg font-semibold hover:bg-white/20 transition-all duration-300 text-center">
-              ⛪ Cadastrar Igreja
+            <Link href="/o-que-e-celula" className="w-full sm:w-auto glass-card text-white px-6 sm:px-10 py-4 rounded-2xl text-base sm:text-lg font-semibold hover:bg-white/20 transition-all duration-300 text-center">
+              📚 O que é uma Célula?
             </Link>
           </div>
         </div>
@@ -112,17 +112,17 @@ export default function HomePage() {
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <h3 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            É Líder ou Pastor?
+            Lidere Células Saudáveis
           </h3>
           <p className="text-xl text-white/90 mb-12 max-w-3xl mx-auto leading-relaxed">
-            Gerencie suas células e equipes de forma simples e eficiente com nossa plataforma completa
+            Gerencie suas células com ferramentas espirituais e práticas para o crescimento do Reino
           </p>
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center px-4">
             <Link href="/login" className="w-full sm:w-auto bg-white text-indigo-600 px-6 sm:px-10 py-4 rounded-2xl text-base sm:text-lg font-bold hover:bg-gray-100 transition-all duration-300 shadow-2xl transform hover:-translate-y-1 text-center">
               ⛪ Cadastrar Minha Igreja
             </Link>
-            <Link href="/login" className="w-full sm:w-auto glass-card text-white px-6 sm:px-10 py-4 rounded-2xl text-base sm:text-lg font-semibold hover:bg-white/20 transition-all duration-300 text-center">
-              🔑 Fazer Login
+            <Link href="/downloads" className="w-full sm:w-auto glass-card text-white px-6 sm:px-10 py-4 rounded-2xl text-base sm:text-lg font-semibold hover:bg-white/20 transition-all duration-300 text-center">
+              📚 Material Gratuito
             </Link>
           </div>
         </div>
@@ -136,14 +136,14 @@ export default function HomePage() {
               <div className="w-12 h-12 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center">
                 <Users className="w-7 h-7 text-white" />
               </div>
-              <h4 className="text-3xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">CélulasConnect</h4>
+              <h4 className="text-3xl font-bold bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">Células Saudáveis</h4>
             </div>
             <p className="text-gray-400 text-lg mb-8">
               Conectando comunidades, fortalecendo vínculos 🙏
             </p>
             <div className="border-t border-gray-800 pt-8">
               <p className="text-gray-500">
-                © 2024 CélulasConnect. Todos os direitos reservados.
+                © 2024 Células Saudáveis - Viva o Ide de Jesus. Todos os direitos reservados.
               </p>
             </div>
           </div>

@@ -77,13 +77,13 @@ export default function LoginPage() {
           <div className="w-12 h-12 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center">
             <Users className="w-7 h-7 text-white" />
           </div>
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">CélulasConnect</h1>
+          <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">Células Saudáveis</h1>
         </Link>
         <h2 className="text-center text-3xl font-bold text-gray-900 mb-2">
           {isLogin ? 'Bem-vindo de volta!' : 'Cadastre sua igreja'}
         </h2>
         <p className="text-center text-gray-600 mb-8">
-          {isLogin ? 'Entre na sua conta para continuar' : 'Crie sua conta e comece a gerenciar suas células'}
+          {isLogin ? 'Entre e continue fortalecendo células saudáveis' : 'Crie sua conta e comece a liderar células saudáveis'}
         </p>
       </div>
 
