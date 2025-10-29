@@ -100,10 +100,10 @@ export default function DevocionaisPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4 md:py-6">
             <Link href="/" className="flex items-center space-x-2 md:space-x-3">
-              <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center">
+              <div className="w-8 h-8 md:w-10 md:h-10 bg-indigo-600 rounded-2xl flex items-center justify-center shadow-lg">
                 <BookOpen className="w-4 h-4 md:w-6 md:h-6 text-white" />
               </div>
-              <span className="text-xl md:text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Células Saudáveis</span>
+              <span className="text-xl md:text-3xl font-bold text-gray-800">CélulasConnect</span>
             </Link>
             <div className="flex items-center space-x-2 md:space-x-4">
               <Link href="/buscar" className="hidden sm:block text-gray-600 hover:text-indigo-600 font-medium transition-colors">
@@ -125,9 +125,14 @@ export default function DevocionaisPage() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Hero Section */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-6">
-            📖 Devocional Diário
-          </h1>
+          <div className="flex items-center justify-center mb-6">
+            <div className="w-16 h-16 bg-indigo-600 rounded-2xl flex items-center justify-center shadow-xl mr-4">
+              <BookOpen className="w-8 h-8 text-white" />
+            </div>
+            <h1 className="text-4xl md:text-6xl font-bold text-gray-800">
+              Devocional Diário
+            </h1>
+          </div>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Alimente sua alma diariamente com reflexões bíblicas especialmente preparadas para células saudáveis
           </p>
