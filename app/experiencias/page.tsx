@@ -28,6 +28,7 @@ export default function ExperienciasPage() {
     categoria: 'testemunho',
     foto: ''
   })
+  const [fotoPreview, setFotoPreview] = useState<string>('')
 
   useEffect(() => {
     // Dados mock de experiências
@@ -90,6 +91,7 @@ export default function ExperienciasPage() {
 
     setExperiencias([novaExperiencia, ...experiencias])
     setFormData({ autor: '', celula: '', titulo: '', descricao: '', categoria: 'testemunho', foto: '' })
+    setFotoPreview('')
     setShowForm(false)
   }
 
@@ -128,10 +130,10 @@ export default function ExperienciasPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4 md:py-6">
             <Link href="/" className="flex items-center space-x-2 md:space-x-3">
-              <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center">
+              <div className="w-8 h-8 md:w-10 md:h-10 bg-blue-600 rounded-2xl flex items-center justify-center shadow-lg">
                 <Camera className="w-4 h-4 md:w-6 md:h-6 text-white" />
               </div>
-              <span className="text-xl md:text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Células Saudáveis</span>
+              <span className="text-xl md:text-3xl font-bold text-gray-800">CélulasConnect</span>
             </Link>
             <div className="flex items-center space-x-2 md:space-x-4">
               <Link href="/buscar" className="hidden sm:block text-gray-600 hover:text-blue-600 font-medium transition-colors">
@@ -153,9 +155,14 @@ export default function ExperienciasPage() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Hero Section */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-6">
-            📸 Fotos & Experiências
-          </h1>
+          <div className="flex items-center justify-center mb-6">
+            <div className="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center shadow-xl mr-4">
+              <Camera className="w-8 h-8 text-white" />
+            </div>
+            <h1 className="text-4xl md:text-6xl font-bold text-gray-800">
+              Fotos & Experiências
+            </h1>
+          </div>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Compartilhe os momentos especiais da sua célula e inspire outras comunidades com seus testemunhos!
           </p>
@@ -331,16 +338,69 @@ export default function ExperienciasPage() {
                       Foto (opcional)
                     </label>
                     <div className="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center hover:border-blue-400 transition-colors">
-                      <Camera className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                      <p className="text-gray-600 mb-2">Cole o link de uma foto</p>
-                      <input
-                        type="url"
-                        value={formData.foto}
-                        onChange={(e) => setFormData({...formData, foto: e.target.value})}
-                        className="w-full mt-3 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                        placeholder="https://exemplo.com/sua-foto.jpg"
-                      />
-                      <p className="text-sm text-gray-500 mt-2">Cole o link de uma foto do Google Fotos, Instagram, etc.</p>
+                      {fotoPreview ? (
+                        <div className="relative">
+                          <img src={fotoPreview} alt="Preview" className="w-full h-48 object-cover rounded-lg mb-4" />
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setFotoPreview('')
+                              setFormData({...formData, foto: ''})
+                            }}
+                            className="absolute top-2 right-2 bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center hover:bg-red-600"
+                          >
+                            ×
+                          </button>
+                        </div>
+                      ) : (
+                        <div>
+                          <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <Camera className="w-8 h-8 text-blue-600" />
+                          </div>
+                          <p className="text-gray-600 mb-4">Adicionar Foto</p>
+                        </div>
+                      )}
+                      
+                      <div className="space-y-3">
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) => {
+                            const file = e.target.files?.[0]
+                            if (file) {
+                              const reader = new FileReader()
+                              reader.onload = (e) => {
+                                const result = e.target?.result as string
+                                setFotoPreview(result)
+                                setFormData({...formData, foto: result})
+                              }
+                              reader.readAsDataURL(file)
+                            }
+                          }}
+                          className="hidden"
+                          id="foto-upload"
+                        />
+                        <label
+                          htmlFor="foto-upload"
+                          className="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 cursor-pointer transition-colors"
+                        >
+                          📸 Escolher da Galeria
+                        </label>
+                        
+                        <div className="text-sm text-gray-500">
+                          <p>Ou cole o link de uma foto:</p>
+                          <input
+                            type="url"
+                            value={formData.foto.startsWith('data:') ? '' : formData.foto}
+                            onChange={(e) => {
+                              setFormData({...formData, foto: e.target.value})
+                              if (e.target.value) setFotoPreview(e.target.value)
+                            }}
+                            className="w-full mt-2 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="https://exemplo.com/foto.jpg"
+                          />
+                        </div>
+                      </div>
                     </div>
                   </div>
 
