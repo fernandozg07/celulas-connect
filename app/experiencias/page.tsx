@@ -192,11 +192,13 @@ export default function ExperienciasPage() {
               </h2>
 
               {/* Foto */}
-              <div className="mb-6 rounded-2xl overflow-hidden bg-gradient-to-r from-blue-100 to-purple-100 h-64 flex items-center justify-center">
+              <div className="mb-6 rounded-2xl overflow-hidden bg-gray-100 h-64 flex items-center justify-center border-2 border-dashed border-gray-300">
                 <div className="text-center text-gray-500">
-                  <Camera className="w-16 h-16 mx-auto mb-4 opacity-50" />
-                  <p>Foto da experiência</p>
-                  <p className="text-sm">(Simulação - {exp.foto})</p>
+                  <div className="w-16 h-16 bg-gray-200 rounded-xl flex items-center justify-center mx-auto mb-4">
+                    <Camera className="w-8 h-8 text-gray-400" />
+                  </div>
+                  <p className="font-medium">Foto da experiência</p>
+                  <p className="text-sm">Upload em desenvolvimento</p>
                 </div>
               </div>
 
@@ -309,6 +311,20 @@ export default function ExperienciasPage() {
                       className="input-field"
                       placeholder="Compartilhe os detalhes da sua experiência, como Deus agiu e o que isso significou para sua célula..."
                     />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                      Foto (opcional)
+                    </label>
+                    <div className="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center hover:border-blue-400 transition-colors">
+                      <Camera className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                      <p className="text-gray-600 mb-2">Upload de foto em desenvolvimento</p>
+                      <p className="text-sm text-gray-500">Em breve você poderá adicionar fotos às suas experiências</p>
+                      <button type="button" className="mt-3 px-4 py-2 bg-gray-100 text-gray-600 rounded-lg cursor-not-allowed">
+                        Selecionar Foto
+                      </button>
+                    </div>
                   </div>
 
                   <div className="bg-blue-50 p-4 rounded-xl">

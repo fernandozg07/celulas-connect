@@ -9,18 +9,34 @@ export default function DownloadsPage() {
   const [nome, setNome] = useState('')
   const [downloaded, setDownloaded] = useState(false)
 
-  const handleDownload = (e: React.FormEvent) => {
+  const handleDownload = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!email || !nome) return
 
-    // Simular download
-    setDownloaded(true)
-    
-    // Aqui seria o link real do PDF
-    const link = document.createElement('a')
-    link.href = '/material-celulas-saudaveis.pdf' // PDF fictício
-    link.download = 'Material-Celulas-Saudaveis.pdf'
-    link.click()
+    try {
+      // Enviar email
+      await fetch('/api/email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nome,
+          email,
+          tipo: 'Download Material',
+          mensagem: `${nome} baixou o material de células saudáveis.`
+        })
+      })
+
+      setDownloaded(true)
+      
+      // Download do material
+      const link = document.createElement('a')
+      link.href = '/material-celulas-saudaveis.txt'
+      link.download = 'Material-Celulas-Saudaveis.txt'
+      link.click()
+    } catch (error) {
+      console.error('Erro:', error)
+      alert('Erro ao processar download. Tente novamente.')
+    }
   }
 
   return (
@@ -55,8 +71,8 @@ export default function DownloadsPage() {
 
         {/* Conteúdo do Material */}
         <div className="grid md:grid-cols-3 gap-8 mb-12">
-          <div className="card text-center">
-            <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="card text-center hover:shadow-lg transition-shadow">
+            <div className="w-16 h-16 bg-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
               <BookOpen className="w-8 h-8 text-white" />
             </div>
             <h3 className="text-xl font-bold text-gray-900 mb-2">10 Lições</h3>
@@ -65,8 +81,8 @@ export default function DownloadsPage() {
             </p>
           </div>
 
-          <div className="card text-center">
-            <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="card text-center hover:shadow-lg transition-shadow">
+            <div className="w-16 h-16 bg-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
               <Music className="w-8 h-8 text-white" />
             </div>
             <h3 className="text-xl font-bold text-gray-900 mb-2">10 Louvores</h3>
@@ -75,8 +91,8 @@ export default function DownloadsPage() {
             </p>
           </div>
 
-          <div className="card text-center">
-            <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="card text-center hover:shadow-lg transition-shadow">
+            <div className="w-16 h-16 bg-green-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
               <MessageCircle className="w-8 h-8 text-white" />
             </div>
             <h3 className="text-xl font-bold text-gray-900 mb-2">10 Quebra-Gelos</h3>
@@ -90,7 +106,7 @@ export default function DownloadsPage() {
         {!downloaded ? (
           <div className="card max-w-2xl mx-auto">
             <div className="text-center mb-8">
-              <div className="w-20 h-20 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-6">
+              <div className="w-20 h-20 bg-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl">
                 <Download className="w-10 h-10 text-white" />
               </div>
               <h2 className="text-3xl font-bold text-gray-900 mb-4">
@@ -150,7 +166,7 @@ export default function DownloadsPage() {
           </div>
         ) : (
           <div className="card max-w-2xl mx-auto text-center">
-            <div className="w-20 h-20 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-6">
+            <div className="w-20 h-20 bg-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl">
               <CheckCircle className="w-10 h-10 text-white" />
             </div>
             <h2 className="text-3xl font-bold text-gray-900 mb-4">

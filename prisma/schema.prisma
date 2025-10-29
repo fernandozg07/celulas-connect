@@ -62,6 +62,7 @@ model Celula {
   frequencias Frequencia[]
   equipes     Equipe[]
   escalas     Escala[]
+  avaliacoes  Avaliacao[]
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
 }
@@ -142,4 +143,17 @@ model EscalaMembro {
   membro    Membro   @relation(fields: [membroId], references: [id])
   equipe    Equipe   @relation(fields: [equipeId], references: [id])
   createdAt DateTime @default(now())
+}
+
+model Avaliacao {
+  id         String   @id @default(cuid())
+  celulaId   String
+  nome       String
+  nota       Int      // 1 a 5
+  comentario String?
+  foto       String?  // URL da foto
+  aprovada   Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  celula Celula @relation(fields: [celulaId], references: [id])
 }
