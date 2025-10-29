@@ -25,7 +25,8 @@ export default function ExperienciasPage() {
     celula: '',
     titulo: '',
     descricao: '',
-    categoria: 'testemunho'
+    categoria: 'testemunho',
+    foto: ''
   })
 
   useEffect(() => {
@@ -34,9 +35,9 @@ export default function ExperienciasPage() {
       {
         id: '1',
         autor: 'Maria Santos',
-        celula: 'Célula Esperança',
-        titulo: 'Batismo na Praia - Momento Inesquecível! 🌊',
-        descricao: 'Que alegria imensa ver 3 irmãos sendo batizados hoje! Foi um momento de muita emoção e presença de Deus. Nossa célula cresceu não só em número, mas em fé e união. Glória a Deus! 🙏✨',
+        celula: 'Celula Esperanca',
+        titulo: 'Batismo na Praia - Momento Inesquecivel!',
+        descricao: 'Que alegria imensa ver 3 irmaos sendo batizados hoje! Foi um momento de muita emocao e presenca de Deus. Nossa celula cresceu nao so em numero, mas em fe e uniao. Gloria a Deus!',
         foto: '/api/placeholder/400/300',
         data: '2024-01-15',
         likes: 47,
@@ -46,9 +47,9 @@ export default function ExperienciasPage() {
       {
         id: '2',
         autor: 'João Silva',
-        celula: 'Célula Jovens Unidos',
-        titulo: 'Ação Social no Bairro - Amor em Prática ❤️',
-        descricao: 'Nossa célula se mobilizou para distribuir cestas básicas e roupas para famílias carentes do bairro. Ver o sorriso das crianças e a gratidão das mães foi o maior presente que poderíamos receber. Jesus nos ensina a amar através de ações! 🤝',
+        celula: 'Celula Jovens Unidos',
+        titulo: 'Acao Social no Bairro - Amor em Pratica',
+        descricao: 'Nossa celula se mobilizou para distribuir cestas basicas e roupas para familias carentes do bairro. Ver o sorriso das criancas e a gratidao das maes foi o maior presente que poderiamos receber. Jesus nos ensina a amar atraves de acoes!',
         foto: '/api/placeholder/400/300',
         data: '2024-01-14',
         likes: 63,
@@ -58,9 +59,9 @@ export default function ExperienciasPage() {
       {
         id: '3',
         autor: 'Ana Costa',
-        celula: 'Célula Família Abençoada',
-        titulo: 'Cura Milagrosa na Oração 🙌',
-        descricao: 'Durante nossa reunião de oração, nossa irmã Carla foi completamente curada de uma dor nas costas que a incomodava há meses. Deus ainda faz milagres! Que testemunho poderoso para toda nossa célula. Aleluia! 🙏',
+        celula: 'Celula Familia Abencoada',
+        titulo: 'Cura Milagrosa na Oracao',
+        descricao: 'Durante nossa reuniao de oracao, nossa irma Carla foi completamente curada de uma dor nas costas que a incomodava ha meses. Deus ainda faz milagres! Que testemunho poderoso para toda nossa celula. Aleluia!',
         foto: '/api/placeholder/400/300',
         data: '2024-01-13',
         likes: 89,
@@ -80,7 +81,7 @@ export default function ExperienciasPage() {
       celula: formData.celula,
       titulo: formData.titulo,
       descricao: formData.descricao,
-      foto: '/api/placeholder/400/300',
+      foto: formData.foto || '/api/placeholder/400/300',
       data: new Date().toISOString().split('T')[0],
       likes: 0,
       comentarios: 0,
@@ -88,7 +89,7 @@ export default function ExperienciasPage() {
     }
 
     setExperiencias([novaExperiencia, ...experiencias])
-    setFormData({ autor: '', celula: '', titulo: '', descricao: '', categoria: 'testemunho' })
+    setFormData({ autor: '', celula: '', titulo: '', descricao: '', categoria: 'testemunho', foto: '' })
     setShowForm(false)
   }
 
@@ -192,13 +193,24 @@ export default function ExperienciasPage() {
               </h2>
 
               {/* Foto */}
-              <div className="mb-6 rounded-2xl overflow-hidden bg-gray-100 h-64 flex items-center justify-center border-2 border-dashed border-gray-300">
-                <div className="text-center text-gray-500">
+              <div className="mb-6 rounded-2xl overflow-hidden bg-gray-100 h-64 flex items-center justify-center">
+                {exp.foto && exp.foto !== '/api/placeholder/400/300' ? (
+                  <img 
+                    src={exp.foto} 
+                    alt={exp.titulo}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none'
+                      e.currentTarget.nextElementSibling.style.display = 'flex'
+                    }}
+                  />
+                ) : null}
+                <div className="text-center text-gray-500" style={{display: exp.foto && exp.foto !== '/api/placeholder/400/300' ? 'none' : 'flex'}}>
                   <div className="w-16 h-16 bg-gray-200 rounded-xl flex items-center justify-center mx-auto mb-4">
                     <Camera className="w-8 h-8 text-gray-400" />
                   </div>
-                  <p className="font-medium">Foto da experiência</p>
-                  <p className="text-sm">Upload em desenvolvimento</p>
+                  <p className="font-medium">Foto da experiencia</p>
+                  <p className="text-sm">Adicione uma foto via URL</p>
                 </div>
               </div>
 
@@ -319,11 +331,15 @@ export default function ExperienciasPage() {
                     </label>
                     <div className="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center hover:border-blue-400 transition-colors">
                       <Camera className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                      <p className="text-gray-600 mb-2">Upload de foto em desenvolvimento</p>
-                      <p className="text-sm text-gray-500">Em breve você poderá adicionar fotos às suas experiências</p>
-                      <button type="button" className="mt-3 px-4 py-2 bg-gray-100 text-gray-600 rounded-lg cursor-not-allowed">
-                        Selecionar Foto
-                      </button>
+                      <p className="text-gray-600 mb-2">Cole o link de uma foto</p>
+                      <input
+                        type="url"
+                        value={formData.foto}
+                        onChange={(e) => setFormData({...formData, foto: e.target.value})}
+                        className="w-full mt-3 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="https://exemplo.com/sua-foto.jpg"
+                      />
+                      <p className="text-sm text-gray-500 mt-2">Cole o link de uma foto do Google Fotos, Instagram, etc.</p>
                     </div>
                   </div>
 
