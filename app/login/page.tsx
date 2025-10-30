@@ -15,13 +15,13 @@ export default function LoginPage() {
     nome: '',
     nomeIgreja: '',
     pastor: '',
-    liderPrincipal: '',
-    liderTreinamento: '',
-    anfitriao: '',
+    cpf: '',
+    rg: '',
     telefone: '',
     endereco: '',
     cidade: '',
-    estado: ''
+    estado: '',
+    comprovanteResidencia: ''
   })
   const [loading, setLoading] = useState(false)
   const router = useRouter()
@@ -137,43 +137,68 @@ export default function LoginPage() {
                   />
                 </div>
 
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Líder Principal
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.liderPrincipal || ''}
-                    onChange={(e) => setFormData({...formData, liderPrincipal: e.target.value})}
-                    className="input-field"
-                    placeholder="Nome do líder principal"
-                  />
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                      CPF *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={formData.cpf}
+                      onChange={(e) => setFormData({...formData, cpf: e.target.value})}
+                      className="input-field"
+                      placeholder="000.000.000-00"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                      RG *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={formData.rg}
+                      onChange={(e) => setFormData({...formData, rg: e.target.value})}
+                      className="input-field"
+                      placeholder="00.000.000-0"
+                    />
+                  </div>
                 </div>
 
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Líder em Treinamento
+                    Comprovante de Residência *
                   </label>
-                  <input
-                    type="text"
-                    value={formData.liderTreinamento || ''}
-                    onChange={(e) => setFormData({...formData, liderTreinamento: e.target.value})}
-                    className="input-field"
-                    placeholder="Nome do líder em treinamento"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Anfitrião
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.anfitriao || ''}
-                    onChange={(e) => setFormData({...formData, anfitriao: e.target.value})}
-                    className="input-field"
-                    placeholder="Nome do anfitrião (dono da casa)"
-                  />
+                  <div className="border-2 border-dashed border-gray-300 rounded-xl p-4 text-center hover:border-blue-400 transition-colors">
+                    <input
+                      type="file"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0]
+                        if (file) {
+                          // Simular upload - em produção usar Cloudinary/S3
+                          setFormData({...formData, comprovanteResidencia: `uploaded_${file.name}`})
+                        }
+                      }}
+                      className="hidden"
+                      id="comprovante-upload"
+                    />
+                    <label
+                      htmlFor="comprovante-upload"
+                      className="cursor-pointer"
+                    >
+                      <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-2">
+                        📄
+                      </div>
+                      <p className="text-sm text-gray-600">
+                        {formData.comprovanteResidencia ? 'Arquivo selecionado' : 'Clique para anexar'}
+                      </p>
+                      <p className="text-xs text-gray-500 mt-1">
+                        PDF, JPG ou PNG (máx. 5MB)
+                      </p>
+                    </label>
+                  </div>
                 </div>
 
                 <div>

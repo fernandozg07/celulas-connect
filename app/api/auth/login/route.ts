@@ -1,40 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-
-// Usuários hardcoded para funcionar na Vercel
-const usuarios = [
-  {
-    id: '1',
-    nome: 'João Silva',
-    email: 'joao@ibcentral.com.br',
-    senha: '123456',
-    tipo: 'admin',
-    igreja: { nome: 'Igreja Batista Central' }
-  },
-  {
-    id: '2',
-    nome: 'Maria Santos',
-    email: 'maria@metodista.com.br',
-    senha: '123456',
-    tipo: 'admin',
-    igreja: { nome: 'Igreja Metodista São Paulo' }
-  },
-  {
-    id: '3',
-    nome: 'Carlos Oliveira',
-    email: 'carlos@ibcentral.com.br',
-    senha: '123456',
-    tipo: 'lider',
-    igreja: { nome: 'Igreja Batista Central' }
-  },
-  {
-    id: '4',
-    nome: 'Ana Costa',
-    email: 'ana@metodista.com.br',
-    senha: '123456',
-    tipo: 'lider',
-    igreja: { nome: 'Igreja Metodista São Paulo' }
-  }
-]
+import { prisma } from '@/lib/prisma'
+import bcrypt from 'bcryptjs'
 
 export async function POST(request: NextRequest) {
   try {
@@ -47,7 +13,11 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const usuario = usuarios.find(u => u.email === email && u.senha === senha)
+    // Buscar usuário no banco
+    const usuario = await prisma.usuario.findUnique({
+      where: { email },
+      include: { igreja: true }
+    })
 
     if (!usuario) {
       return NextResponse.json(
@@ -56,14 +26,29 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // Verificar senha
+    const senhaValida = await bcrypt.compare(senha, usuario.senha)
+    
+    if (!senhaValida) {
+      return NextResponse.json(
+        { error: 'Credenciais inválidas' },
+        { status: 401 }
+      )
+    }
+
+    // Verificar se usuário está ativo
+    if (!usuario.ativo) {
+      return NextResponse.json(
+        { error: 'Usuário inativo. Contate o administrador.' },
+        { status: 403 }
+      )
+    }
+
+    // Remover senha do retorno
+    const { senha: _, ...usuarioSemSenha } = usuario
+
     return NextResponse.json({
-      user: {
-        id: usuario.id,
-        nome: usuario.nome,
-        email: usuario.email,
-        tipo: usuario.tipo,
-        igreja: usuario.igreja
-      }
+      user: usuarioSemSenha
     })
 
   } catch (error) {
