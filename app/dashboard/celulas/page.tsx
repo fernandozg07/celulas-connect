@@ -35,71 +35,90 @@ export default function CelulasPage() {
   })
 
   useEffect(() => {
-    // Simulando dados
-    const celulasMock: Celula[] = [
-      {
-        id: '1',
-        nome: 'Célula Esperança',
-        lider: 'João Silva',
-        whatsapp: '11999999999',
-        dia: 'Terça-feira',
-        horario: '19:30',
-        descricao: 'Uma célula acolhedora focada no crescimento espiritual',
-        faixaEtaria: 'adultos',
-        endereco: 'Rua das Flores, 123',
-        bairro: 'Vila Madalena',
-        membros: 15
-      },
-      {
-        id: '2',
-        nome: 'Célula Jovens Unidos',
-        lider: 'Maria Santos',
-        whatsapp: '11888888888',
-        dia: 'Quinta-feira',
-        horario: '20:00',
-        descricao: 'Célula dinâmica para jovens de 18 a 30 anos',
-        faixaEtaria: 'jovens',
-        endereco: 'Av. Paulista, 456',
-        bairro: 'Pinheiros',
-        membros: 12
+    const carregarCelulas = async () => {
+      try {
+        const userData = localStorage.getItem('user')
+        if (!userData) return
+        
+        const user = JSON.parse(userData)
+        const response = await fetch(`/api/celulas/gerenciar?userId=${user.id}`)
+        
+        if (response.ok) {
+          const celulasData = await response.json()
+          setCelulas(celulasData)
+        }
+      } catch (error) {
+        console.error('Erro ao carregar células:', error)
       }
-    ]
-    setCelulas(celulasMock)
-  }, [])
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    
-    if (editingCelula) {
-      // Editar célula existente
-      setCelulas(celulas.map(c => 
-        c.id === editingCelula.id 
-          ? { ...c, ...formData, membros: c.membros }
-          : c
-      ))
-    } else {
-      // Criar nova célula
-      const novaCelula: Celula = {
-        id: Date.now().toString(),
-        ...formData,
-        membros: 0
-      }
-      setCelulas([...celulas, novaCelula])
     }
     
-    setShowForm(false)
-    setEditingCelula(null)
-    setFormData({
-      nome: '',
-      lider: '',
-      whatsapp: '',
-      dia: '',
-      horario: '',
-      descricao: '',
-      faixaEtaria: 'adultos',
-      endereco: '',
-      bairro: ''
-    })
+    carregarCelulas()
+  }, [])
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    
+    try {
+      const userData = localStorage.getItem('user')
+      if (!userData) return
+      
+      const user = JSON.parse(userData)
+      
+      if (editingCelula) {
+        // Editar célula existente
+        const response = await fetch('/api/celulas/gerenciar', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            id: editingCelula.id,
+            userId: user.id,
+            ...formData
+          })
+        })
+        
+        if (response.ok) {
+          const celulaAtualizada = await response.json()
+          setCelulas(celulas.map(c => 
+            c.id === editingCelula.id ? celulaAtualizada : c
+          ))
+        }
+      } else {
+        // Criar nova célula
+        const response = await fetch('/api/celulas/gerenciar', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            userId: user.id,
+            ...formData
+          })
+        })
+        
+        if (response.ok) {
+          const novaCelula = await response.json()
+          setCelulas([...celulas, novaCelula])
+        }
+      }
+      
+      setShowForm(false)
+      setEditingCelula(null)
+      setFormData({
+        nome: '',
+        lider: '',
+        whatsapp: '',
+        dia: '',
+        horario: '',
+        descricao: '',
+        faixaEtaria: 'adultos',
+        endereco: '',
+        bairro: ''
+      })
+    } catch (error) {
+      console.error('Erro ao salvar célula:', error)
+    }
   }
 
   const handleEdit = (celula: Celula) => {

@@ -1,45 +1,163 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { prisma } from '@/lib/prisma'
 
-let celulasGerenciar = [
-  {
-    id: '1',
-    nome: 'Célula Esperança',
-    lider: 'Carlos Oliveira',
-    whatsapp: '11999999999',
-    dia: 'Terça-feira',
-    horario: '19:30',
-    descricao: 'Uma célula acolhedora focada no crescimento espiritual',
-    faixaEtaria: 'adultos',
-    endereco: 'Rua das Flores, 123',
-    bairro: 'Vila Madalena',
-    membros: 15
-  },
-  {
-    id: '2',
-    nome: 'Célula Jovens Unidos',
-    lider: 'Ana Costa',
-    whatsapp: '11888888888',
-    dia: 'Quinta-feira',
-    horario: '20:00',
-    descricao: 'Célula dinâmica para jovens de 18 a 30 anos',
-    faixaEtaria: 'jovens',
-    endereco: 'Av. Paulista, 456',
-    bairro: 'Pinheiros',
-    membros: 12
+export async function GET(request: NextRequest) {
+  try {
+    const { searchParams } = new URL(request.url)
+    const userId = searchParams.get('userId')
+
+    if (!userId) {
+      return NextResponse.json(
+        { error: 'ID do usuário é obrigatório' },
+        { status: 400 }
+      )
+    }
+
+    const usuario = await prisma.usuario.findUnique({
+      where: { id: userId },
+      include: { igreja: true }
+    })
+
+    if (!usuario) {
+      return NextResponse.json(
+        { error: 'Usuário não encontrado' },
+        { status: 404 }
+      )
+    }
+
+    const celulas = await prisma.celula.findMany({
+      where: {
+        igrejaId: usuario.igrejaId
+      },
+      include: {
+        _count: {
+          select: {
+            membros: true
+          }
+        }
+      },
+      orderBy: {
+        createdAt: 'desc'
+      }
+    })
+
+    const celulasFormatadas = celulas.map(celula => ({
+      ...celula,
+      membros: celula._count.membros
+    }))
+
+    return NextResponse.json(celulasFormatadas)
+
+  } catch (error) {
+    console.error('Erro ao buscar células:', error)
+    return NextResponse.json(
+      { error: 'Erro interno do servidor' },
+      { status: 500 }
+    )
   }
-]
-
-export async function GET() {
-  return NextResponse.json(celulasGerenciar)
 }
 
 export async function POST(request: NextRequest) {
-  const data = await request.json()
-  const novaCelula = {
-    id: Date.now().toString(),
-    ...data,
-    membros: 0
+  try {
+    const data = await request.json()
+    const { userId, ...celulaData } = data
+
+    if (!userId) {
+      return NextResponse.json(
+        { error: 'ID do usuário é obrigatório' },
+        { status: 400 }
+      )
+    }
+
+    const usuario = await prisma.usuario.findUnique({
+      where: { id: userId }
+    })
+
+    if (!usuario) {
+      return NextResponse.json(
+        { error: 'Usuário não encontrado' },
+        { status: 404 }
+      )
+    }
+
+    const novaCelula = await prisma.celula.create({
+      data: {
+        ...celulaData,
+        cidade: celulaData.cidade || 'São Paulo',
+        igrejaId: usuario.igrejaId,
+        liderUserId: userId
+      },
+      include: {
+        _count: {
+          select: {
+            membros: true
+          }
+        }
+      }
+    })
+
+    return NextResponse.json({
+      ...novaCelula,
+      membros: novaCelula._count.membros
+    })
+
+  } catch (error) {
+    console.error('Erro ao criar célula:', error)
+    return NextResponse.json(
+      { error: 'Erro interno do servidor' },
+      { status: 500 }
+    )
   }
-  celulasGerenciar.push(novaCelula)
-  return NextResponse.json(novaCelula)
+}
+
+export async function PUT(request: NextRequest) {
+  try {
+    const data = await request.json()
+    const { id, userId, ...celulaData } = data
+
+    if (!id || !userId) {
+      return NextResponse.json(
+        { error: 'ID da célula e do usuário são obrigatórios' },
+        { status: 400 }
+      )
+    }
+
+    const usuario = await prisma.usuario.findUnique({
+      where: { id: userId }
+    })
+
+    if (!usuario) {
+      return NextResponse.json(
+        { error: 'Usuário não encontrado' },
+        { status: 404 }
+      )
+    }
+
+    const celulaAtualizada = await prisma.celula.update({
+      where: {
+        id,
+        igrejaId: usuario.igrejaId
+      },
+      data: celulaData,
+      include: {
+        _count: {
+          select: {
+            membros: true
+          }
+        }
+      }
+    })
+
+    return NextResponse.json({
+      ...celulaAtualizada,
+      membros: celulaAtualizada._count.membros
+    })
+
+  } catch (error) {
+    console.error('Erro ao atualizar célula:', error)
+    return NextResponse.json(
+      { error: 'Erro interno do servidor' },
+      { status: 500 }
+    )
+  }
 }

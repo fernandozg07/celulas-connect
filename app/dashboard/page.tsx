@@ -8,11 +8,12 @@ import { useRouter } from 'next/navigation'
 export default function DashboardPage() {
   const [user, setUser] = useState<any>(null)
   const [stats, setStats] = useState({
-    totalCelulas: 3,
-    totalMembros: 45,
-    proximasEscalas: 2,
-    frequenciaMedia: 85
+    totalCelulas: 0,
+    totalMembros: 0,
+    proximasEscalas: 0,
+    frequenciaMedia: 0
   })
+  const [celulasProximas, setCelulasProximas] = useState<any[]>([])
   const router = useRouter()
 
   useEffect(() => {
@@ -21,8 +22,42 @@ export default function DashboardPage() {
       router.push('/login')
       return
     }
-    setUser(JSON.parse(userData))
+    const userParsed = JSON.parse(userData)
+    setUser(userParsed)
+    
+    // Carregar estatísticas
+    carregarEstatisticas(userParsed.id)
   }, [router])
+  
+  const carregarEstatisticas = async (userId: string) => {
+    try {
+      const response = await fetch(`/api/celulas/gerenciar?userId=${userId}`)
+      if (response.ok) {
+        const celulas = await response.json()
+        const totalMembros = celulas.reduce((acc: number, celula: any) => acc + celula.membros, 0)
+        
+        setStats({
+          totalCelulas: celulas.length,
+          totalMembros,
+          proximasEscalas: 2, // Implementar depois
+          frequenciaMedia: 85 // Implementar depois
+        })
+        
+        // Próximas reuniões (próximos 2 dias)
+        const hoje = new Date().getDay()
+        const diasSemana = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado']
+        
+        const proximasCelulas = celulas.filter((celula: any) => {
+          const diaCelula = diasSemana.findIndex(dia => celula.dia.includes(dia))
+          return diaCelula >= hoje && diaCelula <= hoje + 2
+        }).slice(0, 2)
+        
+        setCelulasProximas(proximasCelulas)
+      }
+    } catch (error) {
+      console.error('Erro ao carregar estatísticas:', error)
+    }
+  }
 
   const handleLogout = () => {
     localStorage.removeItem('user')
@@ -139,21 +174,23 @@ export default function DashboardPage() {
           <div className="card">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Próximas Reuniões</h3>
             <div className="space-y-3">
-              <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                <div>
-                  <p className="font-medium">Célula Esperança</p>
-                  <p className="text-sm text-gray-600">Terça-feira, 19:30</p>
+              {celulasProximas.length > 0 ? (
+                celulasProximas.map((celula, index) => (
+                  <div key={celula.id} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                    <div>
+                      <p className="font-medium">{celula.nome}</p>
+                      <p className="text-sm text-gray-600">{celula.dia}, {celula.horario}</p>
+                    </div>
+                    <span className="text-sm text-primary">
+                      {index === 0 ? 'Próxima' : 'Em breve'}
+                    </span>
+                  </div>
+                ))
+              ) : (
+                <div className="p-3 bg-gray-50 rounded-lg text-center text-gray-500">
+                  Nenhuma reunião próxima
                 </div>
-                <span className="text-sm text-primary">Hoje</span>
-              </div>
-              
-              <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                <div>
-                  <p className="font-medium">Célula Jovens Unidos</p>
-                  <p className="text-sm text-gray-600">Quinta-feira, 20:00</p>
-                </div>
-                <span className="text-sm text-gray-600">Em 2 dias</span>
-              </div>
+              )}
             </div>
           </div>
         </div>
