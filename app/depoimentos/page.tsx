@@ -21,63 +21,20 @@ export default function DepoimentosPage() {
   const [filtro, setFiltro] = useState('todos')
 
   useEffect(() => {
-    // Dados mock de depoimentos
-    const depoimentosMock: Depoimento[] = [
-      {
-        id: '1',
-        nome: 'Pastor Roberto Silva',
-        cargo: 'Pastor Presidente',
-        igreja: 'Igreja Batista Esperança',
-        depoimento: 'O Células Saudáveis revolucionou nossa igreja! Em 6 meses, conseguimos organizar melhor nossas 15 células, aumentar a frequência em 40% e formar 8 novos líderes. A plataforma é intuitiva e realmente focada no crescimento espiritual. Recomendo para todas as igrejas que desejam fortalecer seu ministério de células.',
-        tipo: 'texto',
-        foto: '/api/placeholder/100/100',
-        avaliacao: 5
-      },
-      {
-        id: '2',
-        nome: 'Pastora Maria Santos',
-        cargo: 'Pastora de Células',
-        igreja: 'Igreja Metodista Central',
-        depoimento: 'Como pastora responsável pelas células, posso afirmar que esta plataforma trouxe uma organização que nunca tivemos antes. O sistema de frequência, escalas e principalmente o muro de oração criaram uma conexão real entre nossas 23 células. Nossos líderes estão mais capacitados e engajados!',
-        tipo: 'video',
-        videoUrl: 'https://example.com/video1',
-        foto: '/api/placeholder/100/100',
-        avaliacao: 5
-      },
-      {
-        id: '3',
-        nome: 'Carlos Oliveira',
-        cargo: 'Líder de Célula',
-        igreja: 'Igreja Assembleia de Deus',
-        depoimento: 'Sou líder há 3 anos e nunca tive ferramentas tão práticas! O material gratuito me ajudou muito no início, e agora uso a plataforma para tudo: controlar frequência, organizar escalas e até receber visitantes. Minha célula cresceu de 8 para 18 pessoas em 4 meses. Glória a Deus!',
-        tipo: 'texto',
-        foto: '/api/placeholder/100/100',
-        avaliacao: 5
-      },
-      {
-        id: '4',
-        nome: 'Ana Costa',
-        cargo: 'Supervisora de Células',
-        igreja: 'Igreja Presbiteriana Renovada',
-        depoimento: 'O que mais me impressiona é o foco espiritual da plataforma. Não é apenas uma ferramenta administrativa, mas um verdadeiro instrumento para o crescimento do Reino. O sistema de pedidos de oração uniu nossas células de uma forma incrível. Recomendo de coração!',
-        tipo: 'video',
-        videoUrl: 'https://example.com/video2',
-        foto: '/api/placeholder/100/100',
-        avaliacao: 5
-      },
-      {
-        id: '5',
-        nome: 'João Ferreira',
-        cargo: 'Pastor Auxiliar',
-        igreja: 'Igreja Quadrangular',
-        depoimento: 'Implementamos o Células Saudáveis há 8 meses e os resultados são visíveis: mais organização, melhor comunicação entre líderes e principalmente, mais pessoas sendo alcançadas. O sistema de visitantes já trouxe 12 novas pessoas para nossas células. É uma bênção!',
-        tipo: 'texto',
-        foto: '/api/placeholder/100/100',
-        avaliacao: 5
-      }
-    ]
-    setDepoimentos(depoimentosMock)
+    carregarDepoimentos()
   }, [])
+
+  const carregarDepoimentos = async () => {
+    try {
+      const response = await fetch('/api/depoimentos')
+      if (response.ok) {
+        const data = await response.json()
+        setDepoimentos(data)
+      }
+    } catch (error) {
+      console.error('Erro ao carregar depoimentos:', error)
+    }
+  }
 
   const depoimentosFiltrados = depoimentos.filter(dep => {
     if (filtro === 'todos') return true

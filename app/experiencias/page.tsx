@@ -31,74 +31,76 @@ export default function ExperienciasPage() {
   const [fotoPreview, setFotoPreview] = useState<string>('')
 
   useEffect(() => {
-    // Dados mock de experiências
-    const experienciasMock: Experiencia[] = [
-      {
-        id: '1',
-        autor: 'Maria Santos',
-        celula: 'Celula Esperanca',
-        titulo: 'Batismo na Praia - Momento Inesquecivel!',
-        descricao: 'Que alegria imensa ver 3 irmaos sendo batizados hoje! Foi um momento de muita emocao e presenca de Deus. Nossa celula cresceu nao so em numero, mas em fe e uniao. Gloria a Deus!',
-        foto: '/api/placeholder/400/300',
-        data: '2024-01-15',
-        likes: 47,
-        comentarios: 12,
-        categoria: 'batismo'
-      },
-      {
-        id: '2',
-        autor: 'João Silva',
-        celula: 'Celula Jovens Unidos',
-        titulo: 'Acao Social no Bairro - Amor em Pratica',
-        descricao: 'Nossa celula se mobilizou para distribuir cestas basicas e roupas para familias carentes do bairro. Ver o sorriso das criancas e a gratidao das maes foi o maior presente que poderiamos receber. Jesus nos ensina a amar atraves de acoes!',
-        foto: '/api/placeholder/400/300',
-        data: '2024-01-14',
-        likes: 63,
-        comentarios: 18,
-        categoria: 'acao-social'
-      },
-      {
-        id: '3',
-        autor: 'Ana Costa',
-        celula: 'Celula Familia Abencoada',
-        titulo: 'Cura Milagrosa na Oracao',
-        descricao: 'Durante nossa reuniao de oracao, nossa irma Carla foi completamente curada de uma dor nas costas que a incomodava ha meses. Deus ainda faz milagres! Que testemunho poderoso para toda nossa celula. Aleluia!',
-        foto: '/api/placeholder/400/300',
-        data: '2024-01-13',
-        likes: 89,
-        comentarios: 25,
-        categoria: 'milagre'
-      }
-    ]
-    setExperiencias(experienciasMock)
+    carregarExperiencias()
   }, [])
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    
-    const novaExperiencia: Experiencia = {
-      id: Date.now().toString(),
-      autor: formData.autor,
-      celula: formData.celula,
-      titulo: formData.titulo,
-      descricao: formData.descricao,
-      foto: formData.foto || '/api/placeholder/400/300',
-      data: new Date().toISOString().split('T')[0],
-      likes: 0,
-      comentarios: 0,
-      categoria: formData.categoria
+  const carregarExperiencias = async () => {
+    try {
+      const response = await fetch('/api/experiencias')
+      if (response.ok) {
+        const data = await response.json()
+        const experienciasFormatadas = data.map((exp: any) => ({
+          ...exp,
+          data: exp.createdAt.split('T')[0],
+          comentarios: 0 // Implementar depois
+        }))
+        setExperiencias(experienciasFormatadas)
+      }
+    } catch (error) {
+      console.error('Erro ao carregar experiências:', error)
     }
-
-    setExperiencias([novaExperiencia, ...experiencias])
-    setFormData({ autor: '', celula: '', titulo: '', descricao: '', categoria: 'testemunho', foto: '' })
-    setFotoPreview('')
-    setShowForm(false)
   }
 
-  const handleLike = (id: string) => {
-    setExperiencias(experiencias.map(exp => 
-      exp.id === id ? { ...exp, likes: exp.likes + 1 } : exp
-    ))
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    
+    try {
+      const response = await fetch('/api/experiencias', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      })
+
+      if (response.ok) {
+        const novaExperiencia = await response.json()
+        const experienciaFormatada = {
+          ...novaExperiencia,
+          data: novaExperiencia.createdAt.split('T')[0],
+          comentarios: 0
+        }
+        setExperiencias([experienciaFormatada, ...experiencias])
+        setFormData({ autor: '', celula: '', titulo: '', descricao: '', categoria: 'testemunho', foto: '' })
+        setFotoPreview('')
+        setShowForm(false)
+      } else {
+        console.error('Erro ao salvar experiência')
+      }
+    } catch (error) {
+      console.error('Erro ao salvar experiência:', error)
+    }
+  }
+
+  const handleLike = async (id: string) => {
+    try {
+      const response = await fetch('/api/experiencias', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id })
+      })
+
+      if (response.ok) {
+        const experienciaAtualizada = await response.json()
+        setExperiencias(experiencias.map(exp => 
+          exp.id === id ? { ...exp, likes: experienciaAtualizada.likes } : exp
+        ))
+      }
+    } catch (error) {
+      console.error('Erro ao curtir experiência:', error)
+    }
   }
 
   const getCategoriaIcon = (categoria: string) => {

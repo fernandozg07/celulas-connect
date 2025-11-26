@@ -96,9 +96,69 @@ export async function POST() {
       }
     }
 
+    // Criar experiências de exemplo
+    const experiencias = [
+      {
+        autor: 'Maria Santos',
+        celula: 'Célula Esperança',
+        titulo: 'Batismo na Praia - Momento Inesquecível!',
+        descricao: 'Que alegria imensa ver 3 irmãos sendo batizados hoje! Foi um momento de muita emoção e presença de Deus.',
+        categoria: 'batismo',
+        likes: 47
+      },
+      {
+        autor: 'João Silva',
+        celula: 'Célula Jovens Unidos',
+        titulo: 'Ação Social no Bairro - Amor em Prática',
+        descricao: 'Nossa célula se mobilizou para distribuir cestas básicas e roupas para famílias carentes do bairro.',
+        categoria: 'acao-social',
+        likes: 63
+      }
+    ]
+
+    for (const exp of experiencias) {
+      await prisma.experiencia.create({
+        data: exp
+      })
+    }
+
+    // Criar depoimentos de exemplo
+    const depoimentos = [
+      {
+        nome: 'Pastor Roberto Silva',
+        cargo: 'Pastor Presidente',
+        igreja: 'Igreja Batista Esperança',
+        depoimento: 'O CélulasConnect revolucionou nossa igreja! Em 6 meses, conseguimos organizar melhor nossas 15 células.',
+        tipo: 'texto',
+        avaliacao: 5
+      },
+      {
+        nome: 'Carlos Oliveira',
+        cargo: 'Líder de Célula',
+        igreja: 'Igreja Assembleia de Deus',
+        depoimento: 'Minha célula cresceu de 8 para 18 pessoas em 4 meses. Glória a Deus!',
+        tipo: 'texto',
+        avaliacao: 5
+      }
+    ]
+
+    for (const dep of depoimentos) {
+      await prisma.depoimento.create({
+        data: dep
+      })
+    }
+
     return NextResponse.json({
       message: 'Banco configurado com sucesso!',
       status: 'success',
+      data: {
+        igrejas: 1,
+        usuarios: 1,
+        celulas: celulas.length,
+        membros: celulas.length * 5,
+        experiencias: experiencias.length,
+        depoimentos: depoimentos.length
+      },
       credentials: {
         email: 'admin@igrejabatistacentral.com.br',
         senha: '123456'

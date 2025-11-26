@@ -165,3 +165,32 @@ model Avaliacao {
 
   celula Celula @relation(fields: [celulaId], references: [id])
 }
+
+model Experiencia {
+  id         String   @id @default(cuid())
+  autor      String
+  celula     String
+  titulo     String
+  descricao  String
+  foto       String?
+  categoria  String   // testemunho, batismo, acao-social, milagre, evento
+  likes      Int      @default(0)
+  aprovada   Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Depoimento {
+  id         String   @id @default(cuid())
+  nome       String
+  cargo      String
+  igreja     String
+  depoimento String
+  tipo       String   // video, texto
+  videoUrl   String?
+  foto       String?
+  avaliacao  Int      @default(5)
+  aprovado   Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
