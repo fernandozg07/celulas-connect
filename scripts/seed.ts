@@ -13,6 +13,7 @@ async function main() {
   await prisma.equipe.deleteMany()
   await prisma.frequencia.deleteMany()
   await prisma.membro.deleteMany()
+  await prisma.avaliacao.deleteMany()
   await prisma.celula.deleteMany()
   await prisma.usuario.deleteMany()
   await prisma.igreja.deleteMany()

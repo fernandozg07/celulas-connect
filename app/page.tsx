@@ -2,8 +2,21 @@
 
 import { MapPin, Users, Clock, Star } from 'lucide-react'
 import Link from 'next/link'
+import { useState, useEffect } from 'react'
 
 export default function HomePage() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [userName, setUserName] = useState('')
+
+  useEffect(() => {
+    const userData = localStorage.getItem('user')
+    if (userData) {
+      const user = JSON.parse(userData)
+      setIsLoggedIn(true)
+      setUserName(user.nome)
+    }
+  }, [])
+
   return (
     <div className="min-h-screen">
       {/* Header */}
@@ -17,13 +30,27 @@ export default function HomePage() {
               <h1 className="text-lg md:text-2xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">Células Saudáveis</h1>
             </div>
             <div className="flex items-center space-x-2 md:space-x-4">
-              <Link href="/login" className="hidden sm:block text-gray-600 hover:text-indigo-600 font-medium transition-colors">
-                Login
-              </Link>
-              <Link href="/login" className="btn-primary text-sm md:text-base px-4 py-2 md:px-8 md:py-3">
-                <span className="hidden sm:inline">Cadastrar Igreja</span>
-                <span className="sm:hidden">⛪</span>
-              </Link>
+              {isLoggedIn ? (
+                <>
+                  <span className="hidden sm:block text-gray-600 text-sm">
+                    Olá, {userName}
+                  </span>
+                  <Link href="/dashboard" className="btn-primary text-sm md:text-base px-4 py-2 md:px-8 md:py-3">
+                    <span className="hidden sm:inline">Dashboard</span>
+                    <span className="sm:hidden">📊</span>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link href="/login" className="hidden sm:block text-gray-600 hover:text-indigo-600 font-medium transition-colors">
+                    Login
+                  </Link>
+                  <Link href="/login" className="btn-primary text-sm md:text-base px-4 py-2 md:px-8 md:py-3">
+                    <span className="hidden sm:inline">Cadastrar Igreja</span>
+                    <span className="sm:hidden">⛪</span>
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -50,9 +77,15 @@ export default function HomePage() {
             <Link href="/buscar" className="w-full sm:w-auto bg-white text-indigo-600 px-6 sm:px-10 py-4 rounded-2xl text-base sm:text-lg font-bold hover:bg-gray-100 transition-all duration-300 shadow-2xl hover:shadow-3xl transform hover:-translate-y-1 text-center">
 🔥 Encontre Sua Célula Agora
             </Link>
-            <Link href="/o-que-e-celula" className="w-full sm:w-auto glass-card text-white px-6 sm:px-10 py-4 rounded-2xl text-base sm:text-lg font-semibold hover:bg-white/20 transition-all duration-300 text-center">
-              📚 O que é uma Célula?
-            </Link>
+            {isLoggedIn ? (
+              <Link href="/dashboard" className="w-full sm:w-auto glass-card text-white px-6 sm:px-10 py-4 rounded-2xl text-base sm:text-lg font-semibold hover:bg-white/20 transition-all duration-300 text-center">
+                📊 Ir para Dashboard
+              </Link>
+            ) : (
+              <Link href="/o-que-e-celula" className="w-full sm:w-auto glass-card text-white px-6 sm:px-10 py-4 rounded-2xl text-base sm:text-lg font-semibold hover:bg-white/20 transition-all duration-300 text-center">
+                📚 O que é uma Célula?
+              </Link>
+            )}
           </div>
         </div>
       </section>
@@ -118,12 +151,25 @@ export default function HomePage() {
             Lidere com propósito: ferramentas que multiplicam vidas e expandem o Reino de Deus
           </p>
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center px-4">
-            <Link href="/login" className="w-full sm:w-auto bg-white text-indigo-600 px-6 sm:px-10 py-4 rounded-2xl text-base sm:text-lg font-bold hover:bg-gray-100 transition-all duration-300 shadow-2xl transform hover:-translate-y-1 text-center">
-              🚀 Começar Agora - É Grátis!
-            </Link>
-            <Link href="/downloads" className="w-full sm:w-auto glass-card text-white px-6 sm:px-10 py-4 rounded-2xl text-base sm:text-lg font-semibold hover:bg-white/20 transition-all duration-300 text-center">
-              🎁 Kit Gratuito (30 Recursos)
-            </Link>
+            {isLoggedIn ? (
+              <>
+                <Link href="/dashboard" className="w-full sm:w-auto bg-white text-indigo-600 px-6 sm:px-10 py-4 rounded-2xl text-base sm:text-lg font-bold hover:bg-gray-100 transition-all duration-300 shadow-2xl transform hover:-translate-y-1 text-center">
+                  📊 Acessar Dashboard
+                </Link>
+                <Link href="/downloads" className="w-full sm:w-auto glass-card text-white px-6 sm:px-10 py-4 rounded-2xl text-base sm:text-lg font-semibold hover:bg-white/20 transition-all duration-300 text-center">
+                  🎁 Kit Gratuito (30 Recursos)
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link href="/login" className="w-full sm:w-auto bg-white text-indigo-600 px-6 sm:px-10 py-4 rounded-2xl text-base sm:text-lg font-bold hover:bg-gray-100 transition-all duration-300 shadow-2xl transform hover:-translate-y-1 text-center">
+                  🚀 Começar Agora - É Grátis!
+                </Link>
+                <Link href="/downloads" className="w-full sm:w-auto glass-card text-white px-6 sm:px-10 py-4 rounded-2xl text-base sm:text-lg font-semibold hover:bg-white/20 transition-all duration-300 text-center">
+                  🎁 Kit Gratuito (30 Recursos)
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </section>

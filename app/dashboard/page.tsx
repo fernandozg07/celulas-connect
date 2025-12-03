@@ -74,17 +74,24 @@ export default function DashboardPage() {
       <header className="bg-white/80 backdrop-blur-md shadow-lg border-b border-white/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4 md:py-6">
-            <div className="flex items-center space-x-2 md:space-x-3">
+            <Link href="/" className="flex items-center space-x-2 md:space-x-3 hover:opacity-80 transition-opacity">
               <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center">
                 <Users className="w-4 h-4 md:w-6 md:h-6 text-white" />
               </div>
               <h1 className="text-xl md:text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">CélulasConnect</h1>
-            </div>
-            <div className="flex items-center space-x-2 md:space-x-6">
+            </Link>
+            <div className="flex items-center space-x-2 md:space-x-4">
               <div className="hidden sm:block text-right">
                 <p className="text-sm text-gray-500">Bem-vindo,</p>
                 <p className="font-semibold text-gray-900">{user.nome}</p>
               </div>
+              <Link
+                href="/"
+                className="bg-indigo-50 text-indigo-600 hover:bg-indigo-100 px-3 py-2 md:px-4 md:py-2 rounded-xl flex items-center transition-colors font-medium text-sm md:text-base"
+              >
+                <Users className="w-4 h-4 md:mr-2" />
+                <span className="hidden md:inline">Página Inicial</span>
+              </Link>
               <button
                 onClick={handleLogout}
                 className="bg-red-50 text-red-600 hover:bg-red-100 px-3 py-2 md:px-4 md:py-2 rounded-xl flex items-center transition-colors font-medium text-sm md:text-base"

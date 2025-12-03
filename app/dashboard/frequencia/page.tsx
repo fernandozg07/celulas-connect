@@ -136,8 +136,12 @@ export default function FrequenciaPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <div className="flex items-center space-x-4">
-              <Link href="/dashboard" className="text-2xl font-bold text-primary">
+              <Link href="/" className="text-2xl font-bold text-primary hover:opacity-80 transition-opacity">
                 CélulasConnect
+              </Link>
+              <span className="text-gray-400">/</span>
+              <Link href="/dashboard" className="text-gray-600 hover:text-primary transition-colors">
+                Dashboard
               </Link>
               <span className="text-gray-400">/</span>
               <span className="text-gray-600">Controle de Frequência</span>
